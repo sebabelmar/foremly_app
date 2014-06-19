@@ -19,6 +19,7 @@ gem 'rake'
 gem 'shotgun'
 
 gem 'httparty'
+gem 'ofx'
 
 group :test do
   gem 'shoulda-matchers'

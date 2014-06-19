@@ -1,6 +1,5 @@
 module Foremly
-
-  class Transactions
+  class Transaction
     include HTTParty
     base_uri 'http://localhost:9393'
 
