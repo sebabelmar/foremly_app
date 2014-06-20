@@ -39,3 +39,39 @@ get '/user_transactions_check/:cardholder' do
   @cardholder_transactions = cardholder_transactions_order_date
   erb :user_transactions_check
 end
+
+post '/sign_in_cardholder'  do
+  @email = params[:email]
+  @password = params[:password]
+
+  @user = User.find_by_email(params[:email])
+
+  redirect "/cardholder/#{@user.id}"
+end
+
+
+get '/cardholder/:id' do
+  @user = User.find(params[:id])
+  user_cardholder = @user.cardholder
+
+  @user_transactions = Purchase.where(cardholder: user_cardholder)
+
+  erb :cardholder
+end
+
+post "/transaction/:serial" do
+  purchase = Purchase.find_by_serial(params[:serial])
+
+  purchase.job_number = params[:job_number]
+  purchase.accounting_code = params[:acct_code]
+
+  user = User.find_by_cardholder(purchase.cardholder)
+  if purchase.save
+    purchase.posted = true
+
+    redirect "/cardholder/#{user.id}"
+  else
+    redirect "/cardholder/#{purchase.serial}"
+    # fix this to an error redirect
+  end
+end

@@ -12,6 +12,7 @@ class CreatePurchases < ActiveRecord::Migration
       t.string :job_number
       t.string :accounting_code
       t.boolean :posted
+      #put a defaul value and change the completeness of manager table
 
       t.timestamps
     end

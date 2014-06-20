@@ -18,8 +18,8 @@
                     <!-- reverse the date!! -->
                     <td class="section-paragraph">$ <%= transaction["ammount"] %></td>
                     <td class="section-paragraph"><%= transaction["vendor"] %></td>
-                    <td class="section-paragraph"><%= transaction["posted"].class == nil ? "Posted :)" : "Pending"%></td>
-                    <!-- fix the treu or false on poted field!!!  -->
+                    <td class="section-paragraph"><%= transaction["posted"] == nil ? "Pending!!" : "Posted :)" %></td>
+                    <!-- fix the treu or false on poted field!!! when migrating  -->
                     </tr>
 
                 <% end %>
