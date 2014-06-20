@@ -1,0 +1,25 @@
+    <div class="container">
+            <div class="col-lg-12 section">
+              <h1>Welcome Card Holder Manager!</h1>
+              <br>
+              <h2>Foremen and forewomen costing information:</h2>
+              <table class="table table-hover">
+                <tr>
+                  <th>Name</th>
+                  <th>Credit Card Number</th>
+                  <th>Last Update</th>
+                </tr>
+                <% @users.each do |user| %>
+                  <tr>
+                  <td class="section-paragraph"><a href="/user_transactions_check/<%= user.cardholder %>"><%= user["name"] %></td></a>
+                  <td class="section-paragraph"><%= user["cardholder"] %></td>
+                  <td class="section-paragraph"><%= user["updated_at"].asctime %></td>
+                  </tr>
+                <% end %>
+              </table>
+              <br>
+              <h3>Wanna send more transactions to the field???</h3>
+              <a href='/update' class="btn btn-primary btn-lg active" role="button">Update Bank Statement</a>
+            </div>
+    </div>
+    <!-- /container -->
