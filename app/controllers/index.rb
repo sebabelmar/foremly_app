@@ -5,24 +5,8 @@ end
 
 get '/update' do
 
-  api = Foremly::Transaction.new("http://localhost:", 1)
+  `rake db:seed_transactions  `
 
-  all_transactions = api.all_transactions
-
-  @collection = JSON.parse(all_transactions)
-
-  @collection.each do |transaction|
-    transaction = transaction.values.first
-    Purchase.create(
-        serial: transaction["serial"],
-        date: transaction["date"],
-        ammount: transaction["ammount"],
-        vendor: transaction["vendor"],
-        transaction_type: transaction["transaction_type"],
-        location: transaction["location"],
-        cardholder: transaction["cardholder"]
-      )
-  end
   redirect '/manager'
 end
 
@@ -32,8 +16,8 @@ get '/manager' do
   erb :manager
 end
 
-get '/user_transactions_check/:cardholder' do
-  cardholder_transactions = Purchase.where(cardholder: params[:cardholder])
+get '/user_transactions_check/:card_number' do
+  cardholder_transactions = Purchase.where(card_number: params[:card_number])
 
   cardholder_transactions_order_date = cardholder_transactions.reverse!
   @cardholder_transactions = cardholder_transactions_order_date
@@ -52,9 +36,9 @@ end
 
 get '/cardholder/:id' do
   @user = User.find(params[:id])
-  user_cardholder = @user.cardholder
+  user_card_number = @user.card_number
 
-  @user_transactions = Purchase.where(cardholder: user_cardholder)
+  @user_transactions = Purchase.where(card_number: user_card_number, posted: nil ).reverse
 
   erb :cardholder
 end
@@ -65,10 +49,11 @@ post "/transaction/:serial" do
   purchase.job_number = params[:job_number]
   purchase.accounting_code = params[:acct_code]
 
-  user = User.find_by_cardholder(purchase.cardholder)
+  user = User.find_by_card_number(purchase.card_number)
+
   if purchase.save
     purchase.posted = true
-
+    purchase.save
     redirect "/cardholder/#{user.id}"
   else
     redirect "/cardholder/#{purchase.serial}"

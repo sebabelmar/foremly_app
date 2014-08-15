@@ -113,6 +113,12 @@ namespace :db do
     require APP_ROOT.join('db', 'seeds.rb')
   end
 
+  desc "Populate the database with transaction information by running db/transaction_seeds.rb"
+
+  task :seed_transactions do
+    require APP_ROOT.join('db', 'transaction_seeds.rb')
+  end
+
   desc "Returns the current schema version number"
   task :version do
     puts "Current version: #{ActiveRecord::Migrator.current_version}"

@@ -18,8 +18,10 @@ gem 'rake'
 
 gem 'shotgun'
 
-gem 'httparty'
 gem 'ofx'
+
+gem "ofx"
+gem "chronic"
 
 group :test do
   gem 'shoulda-matchers'

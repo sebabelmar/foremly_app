@@ -1,4 +1,5 @@
-cc_numbres = [
+#Credit cards numbers hardcoded.
+cc_numbers = [
   "425907XXXXXX0417",
   "425907XXXXXX0429",
   "425907XXXXXX6457",
@@ -8,23 +9,15 @@ cc_numbres = [
   "425907XXXXXX0292"
 ]
 
-names = [
-"seba",
-"mike",
-"laura",
-"wally",
-"pepe",
-"lola",
-"cristian"
-]
+#User/Cardholders
 i = 0
-cc_numbres.each do |cc_number|
+cc_numbers.each do |cc_number|
   User.create(
-    name: names[i],
+    name: "user_#{i}",
     password: "123",
     phone_number: "19282740117",
-    email: "#{names[i]}@foremly.com",
-    cardholder: cc_numbres[i]
+    email: "user_#{i}@foremly.com",
+    card_number: cc_numbers[i]
     )
   i += 1
 end

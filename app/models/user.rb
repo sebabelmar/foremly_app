@@ -1,4 +1,4 @@
 class User < ActiveRecord::Base
   # Remember to create a migration!
-  validates :cardholder, uniqueness: true
+  validates :card_number, uniqueness: true
 end

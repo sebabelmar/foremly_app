@@ -7,12 +7,11 @@ class CreatePurchases < ActiveRecord::Migration
       t.string :vendor
       t.string :transaction_type
       t.string :location
-      t.string :cardholder
+      t.string :card_number
 
       t.string :job_number
       t.string :accounting_code
       t.boolean :posted
-      #put a defaul value and change the completeness of manager table
 
       t.timestamps
     end
